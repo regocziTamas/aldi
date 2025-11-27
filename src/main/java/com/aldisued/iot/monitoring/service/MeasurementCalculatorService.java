@@ -1,6 +1,7 @@
 package com.aldisued.iot.monitoring.service;
 
 
+import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +13,7 @@ public class MeasurementCalculatorService {
 
   public List<Double> filterByAverageDeviation(List<Double> values, Double deviation) {
     if (deviation == null || deviation < 0.0 || deviation > 1.0) {
-      throw new IllegalArgumentException("Incorrect deviation value: " + deviation);
+      throw new IllegalArgumentException("Invalid deviation value: " + deviation);
     }
 
     DoubleSummaryStatistics summaryStatistics = values
@@ -30,12 +31,27 @@ public class MeasurementCalculatorService {
   }
 
   public List<Double> getMovingAverage(List<Double> data, int windowSize) {
-    // TODO: Task 10
-    return List.of();
+    if (windowSize <= 0 || windowSize > data.size()) {
+      throw new IllegalArgumentException("Invalid window size value: " + windowSize);
+    }
+
+    List<Double> averages = new ArrayList<>();
+
+    for (int i = 0; i <= data.size() - windowSize; i++) {
+
+      double total = 0.0;
+
+      for (int j = 0; j < windowSize; j++) {
+        total += data.get(i+j);
+      }
+
+      averages.add(total / windowSize);
+    }
+
+    return averages;
   }
 
   private boolean isWithinRange(Double val, Double upperLimit, Double lowerLimit) {
     return val != null && val < upperLimit && val > lowerLimit;
   }
-
 }
