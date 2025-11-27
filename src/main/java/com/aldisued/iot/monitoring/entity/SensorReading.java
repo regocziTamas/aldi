@@ -38,7 +38,7 @@ public class SensorReading {
   ) {
     this.value = value;
     this.timestamp = timestamp;
-    //TODO: Task 2
+    this.sensor = sensor;
   }
 
   public Long getId() {
