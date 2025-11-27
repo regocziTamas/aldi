@@ -36,8 +36,6 @@ public class AlertService {
     return savedAlert;
   }
 
-
-
   public Optional<AlertDto> findLastAlertBySensorId(UUID sensorId) {
     return this.alertRepository.findFirstBySensorIdOrderByTimestampDesc(sensorId)
             .map(alert -> new AlertDto(
