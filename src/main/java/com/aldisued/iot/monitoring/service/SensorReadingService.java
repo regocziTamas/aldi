@@ -22,7 +22,6 @@ public class SensorReadingService {
   }
 
   public SensorReading saveSensorReading(SensorReadingDto sensorReadingDto) {
-
     Sensor sensor = this.sensorRepository.findById(sensorReadingDto.sensorId())
             .orElseThrow(() -> new IllegalArgumentException(
                     MessageFormat.format("Could not find sensor with id: {0}", sensorReadingDto.sensorId()))
